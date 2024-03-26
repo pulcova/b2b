@@ -1,0 +1,15 @@
+{% load static %}
+
+<embed src="{% static 'agreements/agreement.pdf' %}" width="100%" height="90%">
+
+
+<div style="text-align: center;">
+    <form method="post" action="{% url 'accept-agreement' %}" style="display: inline-block; margin-right: 10px;">
+        {% csrf_token %}
+        <input type="submit" value="Accept" style="font-size: 16px; padding: 8px 16px;">
+    </form>
+    <form method="post" action="{% url 'dealer-login' %}" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="submit" value="Decline" style="font-size: 16px; padding: 8px 16px;">
+    </form>
+</div>

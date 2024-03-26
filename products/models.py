@@ -1,0 +1,34 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    category = models.CharField(max_length=50, null=True, blank=True)
+    images = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    stock_quantity = models.PositiveIntegerField(default=0)
+    price_for_dealer = models.DecimalField(max_digits=10, decimal_places=2)
+    maximum_retail_price = models.DecimalField(max_digits=10, decimal_places=2)
+    available_sizes = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+class Purchase(models.Model):
+    seller = models.ForeignKey(User, related_name='sales', on_delete=models.CASCADE)
+    buyer = models.ForeignKey(User, related_name='purchases', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)  
+    product_name = models.CharField(max_length=255, null=True, blank=True)  
+    quantity = models.PositiveIntegerField()
+    size = models.CharField(max_length=100)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def save(self, *args, **kwargs):
+        if self.product:
+            self.product_name = self.product.name
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        product_name = self.product_name if self.product_name else 'No product'
+        return f'{product_name} from {self.seller.username} to {self.buyer.username}'
+    

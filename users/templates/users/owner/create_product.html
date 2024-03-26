@@ -1,0 +1,50 @@
+{% include 'users/owner/owner_base.html' %}
+
+{% block content %}
+
+<form class="max-w-sm mx-auto" method="post">
+    {% csrf_token %}
+    <div class="mb-5">
+        <label for="id_name" class="block mb-2 text-sm font-medium text-gray-900">Product Name</label>
+        <input type="text" id="id_name" name="name" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.name.field.help_text }}" required />
+    </div>
+
+    <div class="mb-5">
+        <label for="id_description" class="block mb-2 text-sm font-medium text-gray-900">Product Description</label>
+        <textarea id="id_description" name="description" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.description.field.help_text }}" required>{{ form.description.value|default_if_none:"" }}</textarea>
+    </div>
+
+    <div class="mb-5">
+        <label for="id_available_sizes" class="block mb-2 text-sm font-medium text-gray-900">Available Sizes</label>
+        <input type="text" id="id_available_sizes" name="available_sizes" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.available_sizes.field.help_text }}"/>
+    </div>
+
+    <div class="mb-5">
+        <label for="id_category" class="block mb-2 text-sm font-medium text-gray-900">Product Category</label>
+        <input type="text" id="id_category" name="category" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.category.field.help_text }}"/>
+    </div>
+
+    <div class="mb-5">
+        <label for="id_images" class="block mb-2 text-sm font-medium text-gray-900">Product Images</label>
+        {{ form.images }}
+    </div>
+
+    <div class="mb-5">
+        <label for="id_stock_quantity" class="block mb-2 text-sm font-medium text-gray-900">Stock Quantity</label>
+        <input type="number" id="id_stock_quantity" name="stock_quantity" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.stock_quantity.field.help_text }}" required />
+    </div>
+
+    <div class="mb-5">
+        <label for="id_price_for_dealer" class="block mb-2 text-sm font-medium text-gray-900">Price for Dealer</label>
+        <input type="number" id="id_price_for_dealer" name="price_for_dealer" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.price_for_dealer.field.help_text }}" required />
+    </div>
+
+    <div class="mb-5">
+        <label for="id_maximum_retail_price" class="block mb-2 text-sm font-medium text-gray-900">Maximum Retail Price</label>
+        <input type="number" id="id_maximum_retail_price" name="maximum_retail_price" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.maximum_retail_price.field.help_text }}" required />
+    </div>
+
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Product</button>
+</form>
+
+{% endblock %}

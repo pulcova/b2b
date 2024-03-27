@@ -8,6 +8,11 @@ urlpatterns = [
     path('owner/login/', views.ownerLogin, name='owner-login'),
     path('owner/logout/', views.ownerLogout, name='owner-logout'),
     path('owner/dashboard/', views.ownerDashboard, name='owner-dashboard'),
+    
+    path('owner/dealer/list/', views.dealerList, name='dealer-list'),
+    path('owner/dealer/orders/', views.dealerOrders, name='dealer-orders'),
+    path('owner/retailer/list/', views.retailerList, name='retailer-list'),
+    path('owner/retailer/orders/', views.retailerOrders, name='retailer-orders'),
 
     path('dealer/login/', views.dealerLogin, name='dealer-login'),
     path('dealer/logout/', views.dealerLogout, name='dealer-logout'),

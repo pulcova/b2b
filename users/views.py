@@ -4,9 +4,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, FileResponse
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 
 from .decorators import allowed_users
-from .models import Dealer
+from .models import Dealer, Retailer, Owner
+from products.models import Purchase
 
 def home(request):
     return render(request, 'users/base/base.html')
@@ -92,3 +94,23 @@ def retailerLogout(request):
 @allowed_users(allowed_roles=['retailer'])
 def retailerDashboard(request):
     return render(request, 'users/retailer/retailer_dashboard.html')
+
+
+@allowed_users(allowed_roles=['owner'])
+def dealerList(request):
+    dealers = Dealer.objects.all()
+    return render(request, 'users/owner/dealer_list.html', {'dealers': dealers})
+
+@allowed_users(allowed_roles=['owner'])
+def retailerList(request):
+    retailers = Retailer.objects.all()
+    return render(request, 'users/owner/retailer_list.html', {'retailers': retailers})
+
+
+@allowed_users(allowed_roles=['owner'])
+def dealerOrders(request):
+    return render(request, 'users/owner/dealer_orders.html')
+
+@allowed_users(allowed_roles=['owner'])
+def retailerOrders(request):
+    return render(request, 'users/owner/retailer_orders.html')

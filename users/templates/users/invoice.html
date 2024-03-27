@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Batch #{{ batch.id }}</title>
+    <style>
+        body { 
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Invoice</h1>
+    <h2>Batch ID: {{ batch.id }}</h2>
+    <h2>Date: {{ batch.created_at|date:"d M Y" }}</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Price Before Tax</th>
+                <th>Tax Amount per Unit (5%)</th>
+                <th>Price After Tax per Unit</th>
+                <th>Quantity</th>
+
+
+                <th>Total Price before Tax</th>
+
+                <th>Total Tax Amount</th>
+
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase_with_tax in purchases_with_tax %}
+                <tr>
+                    <td>{{ purchase_with_tax.purchase.product_name }}</td>
+                    <td>{{ purchase_with_tax.purchase.size }}</td>
+                    <td>{{ purchase_with_tax.price_befor_tax_per_unit|floatformat:2 }}</td>
+                    <td>{{ purchase_with_tax.tax_amount_per_unit|floatformat:2 }}</td> 
+                    <td>{{ purchase_with_tax.purchase.product.price_for_dealer }}</td> 
+                    <td>{{ purchase_with_tax.purchase.quantity }}</td>
+
+                    <td>{{ purchase_with_tax.price_before_tax|floatformat:2 }}</td>
+
+                    <td>{{ purchase_with_tax.tax_amount|floatformat:2 }}</td> 
+
+                    <td>{{ purchase_with_tax.purchase.total_price|floatformat:2 }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="8" style="text-align:right"><strong>Total:</strong></td>
+                <td>{{ total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

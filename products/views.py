@@ -10,12 +10,16 @@ from django.template.loader import render_to_string
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from io import BytesIO
-
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.contrib.auth.decorators import login_required
 
 from .forms import ProductForm, PurchaseForm
 from .models import Product, Purchase, PurchaseBatch
 from users.decorators import allowed_users
+from .utils import render_to_pdf
 
+@login_required
 @allowed_users(allowed_roles=['owner'])
 def create_product(request):
     if request.method == 'POST':
@@ -29,15 +33,31 @@ def create_product(request):
         form = ProductForm()
     return render(request, 'users/owner/create_product.html', {'form': form})
 
+@login_required
+@allowed_users(allowed_roles=['owner'])
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product-list')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'users/owner/edit_product.html', {'form': form})
+
+@login_required
 @allowed_users(allowed_roles=['owner'])
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'users/owner/product_list.html', {'products': products})
 
+@login_required
 @allowed_users(allowed_roles=['dealer'])
 def puchase_products(request):
     return render(request, 'users/dealer/purchase_products.html')
 
+@login_required
 @allowed_users(allowed_roles=['dealer'])
 def new_purchase(request):
     products = Product.objects.all()
@@ -66,6 +86,7 @@ def new_purchase(request):
         form = PurchaseForm()
     return render(request, 'users/dealer/new_purchase.html', {'form': form, 'products': products})
 
+@login_required
 @allowed_users(allowed_roles=['dealer'])
 def checkout(request):
     # Start a transaction
@@ -106,22 +127,16 @@ def checkout(request):
     # Redirect to the checkout success page
     return redirect('checkout-success')
 
+
 def clear_cart(request):
     request.session['cart'] = []
     return HttpResponse(status=204)
 
+@login_required
 def checkout_success(request):
     return render(request, 'users/dealer/checkout_success.html')
 
-def render_to_pdf(template_src, context_dict={}):
-    template = get_template(template_src)
-    html  = template.render(context_dict)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return None
-
+@login_required
 @allowed_users(allowed_roles=['dealer'])
 def purchase_history(request):
     purchase_batches = PurchaseBatch.objects.filter(user=request.user)

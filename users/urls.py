@@ -28,4 +28,12 @@ urlpatterns = [
     path('retailer/login/', views.retailerLogin, name='retailer-login'),
     path('retailer/logout/', views.retailerLogout, name='retailer-logout'),
     path('retailer/dashboard/', views.retailerDashboard, name='retailer-dashboard'),
+
+    path('employee/login/', views.employeeLogin, name='employee-login'),
+    path('employee/logout/', views.employeeLogout, name='employee-logout'),
+    path('employee/dashboard/', views.employeeDashboard, name='employee-dashboard'),
+    path('employee/create-dealer/', views.createDealer, name='create-dealer'),
+    path('employee/create-retailer/', views.createRetailer, name='create-retailer'),
+    path('employee/dealer-list/', views.userList, {'role': 'dealer'}, name='dealer-list'),
+    path('employee/retailer-list/', views.userList, {'role': 'retailer'}, name='retailer-list'),
 ]

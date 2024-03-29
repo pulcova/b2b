@@ -8,7 +8,7 @@
         {% csrf_token %}
         <input type="submit" value="Accept" style="font-size: 16px; padding: 8px 16px;">
     </form>
-    <form method="post" action="{% url 'dealer-login' %}" style="display: inline-block;">
+    <form method="post" action="{% url 'dealer-logout' %}" style="display: inline-block;">
         {% csrf_token %}
         <input type="submit" value="Decline" style="font-size: 16px; padding: 8px 16px;">
     </form>

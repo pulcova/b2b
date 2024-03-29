@@ -1,0 +1,18 @@
+{% include 'users/employee/employee_base.html' %}
+
+{% block content %}
+
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <h1>Create New Order</h1>
+
+        <h2>Create Order</h2>
+        <form method="POST">
+          {% csrf_token %}
+          {{ order_form.as_p }}
+          {{ order_item_form.as_p }}
+          <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

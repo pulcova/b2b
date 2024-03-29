@@ -1,4 +1,4 @@
-
+{% load static %}
 <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar" aria-controls="cta-button-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <span class="sr-only">Open sidebar</span>
     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -38,10 +38,10 @@
                   </button>
                   <ul id="dealer-dropdown" class="hidden py-2 space-y-2">
                      <li>
-                        <a href="{% url 'create-dealer' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add Dealer</a>
+                        <a href="{% url 'employee-create-dealer' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add Dealer</a>
                     </li>
                       <li>
-                          <a href="{% url 'create-retailer' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add Retailer</a>
+                          <a href="{% url 'employee-create-retailer' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add Retailer</a>
                       </li>
                   </ul>
                 </li>
@@ -54,15 +54,15 @@
                   </button>
                   <ul id="dealer-dropdown" class="hidden py-2 space-y-2">
                      <li>
-                          <a href="{% url 'dealer-list' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">View Dealers</a>
+                          <a href="{% url 'employee-dealer-list' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">View Dealers</a>
                       </li>
                       <li>
-                          <a href="{% url 'retailer-list' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">View Retailers</a>
+                          <a href="{% url 'employee-retailer-list' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">View Retailers</a>
                       </li>
                   </ul>
                 </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Order</a>
+                     <a href="{% url 'create-order' %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Order</a>
                   </li>
                   <li>
                      <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Set Rates</a>
@@ -91,7 +91,7 @@
              </a>
           </li>
           <li>
-             <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+             <a href="{% url 'employee-logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                    <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                 </svg>
@@ -102,52 +102,4 @@
     </div>
  </aside>
  
- <script>
-    // Get references to the button, sidebar, and other elements
-    const drawerButton = document.querySelector('[data-drawer-target="cta-button-sidebar"]');
-    const drawerToggle = document.querySelector('[data-drawer-toggle="cta-button-sidebar"]');
-    const sidebar = document.getElementById('cta-button-sidebar');
-    const dropdownToggles = document.querySelectorAll('[data-collapse-toggle]');
-  
-    // Click Event for Opening/Closing the Sidebar
-    drawerButton.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-    });
-  
-    drawerToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-    });
-  
-    // Handling Dropdown Menus
-    dropdownToggles.forEach(button => {
-      button.addEventListener('click', () => {
-        const dropdownMenu = button.nextElementSibling;
-        if (dropdownMenu && dropdownMenu.classList.contains('hidden')) {
-          dropdownMenu.classList.remove('hidden');
-  
-          // Save in localStorage
-          const menuId = button.getAttribute('data-collapse-toggle');
-          localStorage.setItem(menuId, true); 
-  
-        } else {
-          dropdownMenu.classList.add('hidden');
-  
-          // Save in localStorage
-          const menuId = button.getAttribute('data-collapse-toggle');
-          localStorage.setItem(menuId, false); 
-        }
-      });
-    });
-  
-    // On page load, restore states
-    window.addEventListener('load', () => {
-      dropdownToggles.forEach(button => {
-        const menuId = button.getAttribute('data-collapse-toggle');
-        const shouldBeOpen = localStorage.getItem(menuId) === 'true';
-        if (shouldBeOpen) {
-          button.nextElementSibling.classList.remove('hidden');
-        }
-      });
-    });
-  </script> 
-  
+ <script src="{% static 'scripts/sidebar.js' %}"></script>

@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Create groups
-        groups = ['dealer', 'owner', 'retailer', 'employee']
+        groups = ['dealer', 'owner', 'employee']
         for group_name in groups:
             Group.objects.get_or_create(name=group_name)
 
@@ -15,7 +15,6 @@ class Command(BaseCommand):
         users = [
             {'username': 'user1', 'password': 'password1', 'group': 'dealer'},
             {'username': 'user2', 'password': 'password2', 'group': 'owner'},
-            {'username': 'user3', 'password': 'password3', 'group': 'retailer'},
             {'username': 'user4', 'password': 'password4', 'group': 'employee'},
         ]
         for user_data in users:
@@ -33,6 +32,3 @@ class Command(BaseCommand):
         # Create an Owner and a Retailer and assign them to users
         owner_user = User.objects.get(username='user2')
         Owner.objects.create(user=owner_user, first_name='Owner', last_name='User')
-
-        retailer_user = User.objects.get(username='user3')
-        Retailer.objects.create(user=retailer_user, first_name='Retailer', last_name='User')

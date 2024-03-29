@@ -1,4 +1,4 @@
-
+{% load static %}
 <button data-drawer-target="cta-button-sidebar" data-drawer-toggle="cta-button-sidebar" aria-controls="cta-button-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
     <span class="sr-only">Open sidebar</span>
     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -142,32 +142,4 @@
     </div>
  </aside>
  
- <script>
- // Get references to the button, sidebar, and other elements
-const drawerButton = document.querySelector('[data-drawer-target="cta-button-sidebar"]');
-const drawerToggle = document.querySelector('[data-drawer-toggle="cta-button-sidebar"]');
-const sidebar = document.getElementById('cta-button-sidebar');
-const dropdownToggles = document.querySelectorAll('[data-collapse-toggle]');
-
-// Click Event for Opening/Closing the Sidebar
-drawerButton.addEventListener('click', () => {
-  sidebar.classList.toggle('-translate-x-full');
-});
-
-drawerToggle.addEventListener('click', () => {
-  sidebar.classList.toggle('-translate-x-full');
-});
-
-// Handling Dropdown Menus
-dropdownToggles.forEach(button => {
-  button.addEventListener('click', () => {
-    const dropdownMenu = button.nextElementSibling;
-    if (dropdownMenu && dropdownMenu.classList.contains('hidden')) {
-      dropdownMenu.classList.remove('hidden');
-    } else {
-      dropdownMenu.classList.add('hidden');
-    }
-  });
-});
-
- </script> 
+ <script src="{% static 'scripts/sidebar.js' %}"></script>

@@ -1,4 +1,4 @@
-{% include 'users/employee/employee_base.html' %}
+{% include 'users/dealer/dealer_base.html' %}
 
 {% block content %}
 
@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for retailer in users %}
+                {% for retailer in retailers %}
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="px-6 py-4">
                         {{ retailer.name }}

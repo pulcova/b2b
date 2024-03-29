@@ -145,16 +145,30 @@ def dealerLogout(request):
 def dealerDashboard(request):
     return render(request, 'users/dealer/dealer_dashboard.html')
 
-# retailer views - login, logout, dashboard
-
-def retailerLogin(request):
-    return genericLogin(request, 'retailer', 'retailer-dashboard')
+# dealer views - create retailer, view retailers
 
 @login_required
-@allowed_users(allowed_roles=['retailer'])
-def retailerLogout(request):
-    logout(request)
-    return redirect('home')
+@allowed_users(allowed_roles=['dealer'])
+def DealerCreateRetailer(request):
+    if request.method == 'POST':
+        form = RetailerForm(request.POST)
+        if form.is_valid():
+            retailer = form.save(commit=False)
+            retailer.created_by = request.user
+            retailer.save()
+            return redirect('dealer-retailer-list')  
+    else:
+        form = RetailerForm()
+    return render(request, 'users/dealer/dealer_create_retailer.html', {'form': form})
+
+@login_required
+@allowed_users(allowed_roles=['dealer'])
+def DealerRetailerList(request):
+    retailers = Retailer.objects.filter(created_by=request.user)
+    return render(request, 'users/dealer/dealer_retailer_list.html', {'retailers': retailers})
+
+# retailer views - login, logout, dashboard
+
 
 @login_required
 @allowed_users(allowed_roles=['retailer'])
@@ -207,24 +221,14 @@ def createDealer(request):
 
 @login_required
 @allowed_users(allowed_roles=['employee'])
-def createRetailer(request):
+def EmployeeCreateRetailer(request):
     if request.method == 'POST':
-        form = RetailerForm(request.POST, request.FILES)
+        form = RetailerForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password1']
-            )
-            group = Group.objects.get(name='retailer')
-            user.groups.add(group)
-            retailer = Retailer(user=user, 
-                                first_name=form.cleaned_data['first_name'],
-                                last_name=form.cleaned_data['last_name'],
-                                phone=form.cleaned_data['phone'],
-                                email=form.cleaned_data['email'],
-                                profile_pic=form.cleaned_data['profile_pic'])
+            retailer = form.save(commit=False)
+            retailer.created_by = request.user
             retailer.save()
-            return redirect('employee-dashboard')
+            return redirect('employee-retailer-list')  
     else:
         form = RetailerForm()
     return render(request, 'users/employee/employee_create_retailer.html', {'form': form})
@@ -237,7 +241,7 @@ def userList(request, role):
         users = Dealer.objects.all()
         template_name = 'users/employee/employee_dealer_list.html'
     elif role == 'retailer':
-        users = Retailer.objects.all()
+        users = Retailer.objects.filter(created_by=request.user)
         template_name = 'users/employee/employee_retailer_list.html'
     else:
         return HttpResponseBadRequest("Invalid role")

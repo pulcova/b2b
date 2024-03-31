@@ -1,0 +1,38 @@
+{% include 'users/employee/employee_base.html' %}
+
+{% block content %}
+
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                Order Summary
+                <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Order ID: {{ order.pk }}</p>
+                <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Dealer: {{ order.dealer.first_name }} {{ order.dealer.last_name }}</p>
+                <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Retailer: {{ order.retailer.name }}</p>
+                <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Sales Employee: {{ order.sales_employee.first_name }} {{ order.sales_employee.last_name }}</p>
+            </caption>
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">Product</th>
+                <th scope="col" class="px-6 py-3">Color</th>
+                <th scope="col" class="px-6 py-3">Size</th>
+                <th scope="col" class="px-6 py-3">Quantity</th>
+                <th scope="col" class="px-6 py-3">Rate</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order_item in order.orderitem_set.all %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4">{{ order_item.product.name }}</td>
+                <td class="px-6 py-4">{{ order_item.color.name }}</td>
+                <td class="px-6 py-4">{{ order_item.size.name }}</td>
+                <td class="px-6 py-4">{{ order_item.quantity }}</td>
+                <td class="px-6 py-4">{{ order_item.rate }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

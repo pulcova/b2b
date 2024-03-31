@@ -5,6 +5,8 @@ from product_management import views as product_views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('session_expired/', views.session_expired, name='session-expired'),
+
 
     path('owner/login/', views.ownerLogin, name='owner-login'),
     path('owner/logout/', views.ownerLogout, name='owner-logout'),
@@ -34,5 +36,9 @@ urlpatterns = [
     path('employee/create-retailer/', views.EmployeeCreateRetailer, name='employee-create-retailer'),
     path('employee/dealer-list/', views.userList, {'role': 'dealer'}, name='employee-dealer-list'),
     path('employee/retailer-list/', views.userList, {'role': 'retailer'}, name='employee-retailer-list'),
-    path('employee/create-order/', product_views.order_create_view, name='create-order'),
+    path('employee/create-order/', product_views.create_order, name='create-order'),
+    path('employee/order/<int:order_id>/add-items/', product_views.add_order_items, name='add-order-items'),
+    path('employee/order/<int:order_id>/summary/', product_views.order_summary, name='order-summary'),
+    path('employee/orders/', product_views.view_orders, name='view-orders'),
+    path('employee/finalize/<int:order_id>/', product_views.finalize_order, name='finalize-order'),
 ]

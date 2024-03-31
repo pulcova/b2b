@@ -21,6 +21,9 @@ from products.utils import render_to_pdf
 def home(request):
     return render(request, 'users/base/base.html')
 
+def session_expired(request):
+    return render(request, 'users/base/session_expired.html')
+
 # Login, logout, dashboard views
 
 def genericLogin(request, role, redirect_page):
@@ -238,7 +241,7 @@ def EmployeeCreateRetailer(request):
 @login_required
 def userList(request, role):
     if role == 'dealer':
-        users = Dealer.objects.all()
+        users = Dealer.objects.filter(created_by=request.user)
         template_name = 'users/employee/employee_dealer_list.html'
     elif role == 'retailer':
         users = Retailer.objects.filter(created_by=request.user)

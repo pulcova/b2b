@@ -28,11 +28,17 @@ class Color(models.Model):
 
     def __str__(self):
         return self.name
+    
+class DesignNumber(models.Model):
+    design_no = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.design_no
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     type = models.ForeignKey(ProductType, on_delete=models.PROTECT)
-    design_no = models.CharField(max_length=50)
+    design_no = models.ForeignKey(DesignNumber, on_delete=models.PROTECT)
     images = models.ImageField(upload_to='media/product_images/')
 
     default_size_group = models.ForeignKey(SizeGroup, on_delete=models.SET_NULL, null=True, blank=True)
@@ -57,7 +63,7 @@ class Order(models.Model):
     dealer = models.ForeignKey(Dealer, on_delete=models.PROTECT)
     retailer = models.ForeignKey(Retailer, on_delete=models.PROTECT)
     sales_employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='PI')
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='PP')
 
     def __str__(self):
         return f"Order {self.order_id}"

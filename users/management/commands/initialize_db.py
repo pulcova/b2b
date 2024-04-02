@@ -6,12 +6,10 @@ class Command(BaseCommand):
     help = 'Create initial data for the app'
 
     def handle(self, *args, **options):
-        # Create groups
         groups = ['dealer', 'owner', 'employee']
         for group_name in groups:
             Group.objects.get_or_create(name=group_name)
 
-        # Create users and assign them to groups
         users = [
             {'username': 'user1', 'password': 'password1', 'group': 'dealer'},
             {'username': 'user2', 'password': 'password2', 'group': 'owner'},
@@ -22,13 +20,11 @@ class Command(BaseCommand):
             group = Group.objects.get(name=user_data['group'])
             user.groups.add(group)
 
-        # Create an Employee and a Dealer and assign them to users
         employee_user = User.objects.get(username='user4')
         Employee.objects.create(user=employee_user, first_name='Employee', last_name='User')
 
         dealer_user = User.objects.get(username='user1')
         Dealer.objects.create(user=dealer_user, first_name='Dealer', last_name='User')
 
-        # Create an Owner and a Retailer and assign them to users
         owner_user = User.objects.get(username='user2')
         Owner.objects.create(user=owner_user, first_name='Owner', last_name='User')

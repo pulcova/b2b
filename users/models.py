@@ -21,6 +21,7 @@ class Dealer(models.Model):
     phone = models.CharField(max_length=13)
     email = models.EmailField(null=True, blank=True)
     agreement_accepted = models.BooleanField(default=False)
+    otp_verified = models.BooleanField(default=False)
     created_by = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='dealers', null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     profile_pic = models.ImageField(upload_to='profile_pics/', null=True, blank=True)

@@ -13,3 +13,4 @@ class SessionExpiredMiddleware:
         response = self.get_response(request)
         request.session['session_expired'] = True
         return response
+    

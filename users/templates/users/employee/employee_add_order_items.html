@@ -3,18 +3,64 @@
 
 <div class="p-4 sm:ml-64">
     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <h1>Add Order Items</h1>
+        <p>Order ID: {{ order.pk }}</p>
         <div class="flex items-center mb-4 rounded bg-white-50">
-            <h1>Add Order Items</h1>
-            <p>Order ID: {{ order.pk }}</p>
             <form method="post" class="w-full">
               {% csrf_token %}
               {{ order_item_formset.management_form }}
               {% for form in order_item_formset %}
                 <div class="mb-5">
-                    {{ form }}
-                    {% for error in form.errors %}
+                    <div>
+                        <label for="{{ form.product.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">Product</label>
+                        <select id="{{ form.product.id_for_label }}" name="{{ form.product.html_name }}" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                            <option value="">--Select Product--</option>
+                            {% for product in products %}
+                            <option value="{{ product.pk }}" {% if product.pk == form.product.value %}selected{% endif %}>{{ product.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% for error in form.product.errors %}
                         <p class="text-red-500">{{ error }}</p>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="{{ form.color.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">Color</label>
+                        <select id="{{ form.color.id_for_label }}" name="{{ form.color.html_name }}" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                            <option value="">--Select Color--</option>
+                            {% for color in colors %}
+                            <option value="{{ color.pk }}" {% if color.pk == form.color.value %}selected{% endif %}>{{ color.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% for error in form.color.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="{{ form.size.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">Size</label>
+                        <select id="{{ form.size.id_for_label }}" name="{{ form.size.html_name }}" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                            <option value="">--Select Size--</option>
+                            {% for size in sizes %}
+                            <option value="{{ size.pk }}" {% if size.pk == form.size.value %}selected{% endif %}>{{ size.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% for error in form.size.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="{{ form.quantity.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">Quantity</label>
+                        <input type="number" id="{{ form.quantity.id_for_label }}" name="{{ form.quantity.html_name }}" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ form.quantity.value|default_if_none:'' }}" min="1" required>
+                        {% for error in form.quantity.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="{{ form.rate.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900">Rate</label>
+                        <input type="number" id="{{ form.rate.id_for_label }}" name="{{ form.rate.html_name }}" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ form.rate.value|default_if_none:'' }}" min="0" step="0.01" required>
+                        {% for error in form.rate.errors %}
+                        <p class="text-red-500">{{ error }}</p>
+                        {% endfor %}
+                    </div>
                 </div>
               {% endfor %}
               <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
@@ -44,12 +90,11 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <form method="POST" action="{% url 'finalize-order' order.pk %}">
-                {% csrf_token %}
-                <button type="submit" value="Finalize Order" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Finalize</button>
-            </form>
          </div>
+         <form method="POST" action="{% url 'finalize-order' order.pk %}">
+            {% csrf_token %}
+            <button type="submit" value="Finalize Order" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Finalize</button>
+        </form>
     </div>
 </div>
-
 {% endblock %}

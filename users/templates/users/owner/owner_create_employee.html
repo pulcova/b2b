@@ -1,0 +1,53 @@
+{% include 'users/owner/owner_base.html' %}
+
+{% block content %}
+
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <form class="w-full" method="post">
+            {% csrf_token %}
+            <div class="mb-5">
+                <label for="id_username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                <input type="text" id="id_username" name="username" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.username.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_password1" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                <input type="password" id="id_password1" name="password1" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.password1.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_password2" class="block mb-2 text-sm font-medium text-gray-900">Confirm Password</label>
+                <input type="password" id="id_password2" name="password2" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.password2.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_first_name" class="block mb-2 text-sm font-medium text-gray-900">First Name</label>
+                <input type="text" id="id_first_name" name="first_name" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.first_name.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_last_name" class="block mb-2 text-sm font-medium text-gray-900">Last Name</label>
+                <input type="text" id="id_last_name" name="last_name" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.last_name.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_phone" class="block mb-2 text-sm font-medium text-gray-900">Phone Number</label>
+                <input type="text" id="id_phone" name="phone" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.phone.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_email" class="block mb-2 text-sm font-medium text-gray-900">Email Address</label>
+                <input type="email" id="id_email" name="email" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.email.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_profile_pic" class="block mb-2 text-sm font-medium text-gray-900">Profile Picture</label>
+                {{ form.profile_pic }}
+            </div>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Employee</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

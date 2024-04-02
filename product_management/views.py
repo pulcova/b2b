@@ -35,6 +35,9 @@ def create_order(request):
 @login_required
 def add_order_items(request, order_id):
     order = Order.objects.get(pk=order_id)
+    products = Product.objects.all()
+    colors = Color.objects.all()
+    sizes = Size.objects.all()
     if request.method == 'POST':
         order_item_formset = OrderItemFormSet(request.POST, instance=order)
         if order_item_formset.is_valid():
@@ -63,13 +66,13 @@ def add_order_items(request, order_id):
             item['product'] = get_object_or_404(Product, id=item['product'])
             item['color'] = get_object_or_404(Color, id=item['color'])
             item['size'] = get_object_or_404(Size, id=item['size'])
-    return render(request, 'users/employee/employee_add_order_items.html', {'order_item_formset': order_item_formset, 'order': order, 'cart': cart})
+    return render(request, 'users/employee/employee_add_order_items.html', {'order_item_formset': order_item_formset, 'order': order, 'cart': cart, 'products': products, 'colors': colors, 'sizes': sizes})
 
 @login_required
 def finalize_order(request, order_id):
     with transaction.atomic():
         order = Order.objects.get(pk=order_id)
-        order.status = 'PI'
+        order.status = 'PA'
         order.save()
 
         for item in request.session['cart']:
@@ -110,3 +113,4 @@ def view_orders(request):
 def order_summary(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     return render(request, 'users/employee/employee_order_summary.html', {'order': order})
+

@@ -1,0 +1,33 @@
+{% include 'users/owner/owner_base.html' %}
+
+{% block content %}
+
+<div class="p-4 sm:ml-64">
+    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+        <form class="w-full" method="post">
+            {% csrf_token %}
+            <div class="mb-5">
+                <label for="id_name" class="block mb-2 text-sm font-medium text-gray-900">Retailer Name</label>
+                <input type="text" id="id_name" name="name" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.name.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_address" class="block mb-2 text-sm font-medium text-gray-900">Address</label>
+                <textarea id="id_address" name="address" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.address.field.help_text }}" required></textarea>
+            </div>
+
+            <div class="mb-5">
+                <label for="id_pincode" class="block mb-2 text-sm font-medium text-gray-900">PIN Code</label>
+                <input type="text" id="id_pincode" name="pincode" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.pincode.field.help_text }}" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="id_contact_number" class="block mb-2 text-sm font-medium text-gray-900">Contact Number</label>
+                <input type="text" id="id_contact_number" name="contact_number" class="shadow-sm bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="{{ form.contact_number.field.help_text }}" required />
+            </div>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create Retailer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

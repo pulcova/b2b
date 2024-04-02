@@ -12,17 +12,30 @@ urlpatterns = [
     path('owner/logout/', views.ownerLogout, name='owner-logout'),
     path('owner/dashboard/', views.ownerDashboard, name='owner-dashboard'),
 
-    path('owner/dealer/list/', views.dealerList, name='dealer-list'),
-    path('dealer-orders/', views.dealer_orders, name='dealer-orders'),
-    path('dealer/<int:dealer_id>/history/', views.dealer_purchase_history, name='dealer_purchase_history'),
+    path('owner/dealer-orders/', views.dealer_orders, name='dealer-orders'),
+    path('owner/dealer/<int:dealer_id>/history/', views.dealer_purchase_history, name='dealer_purchase_history'),
 
+    path('owner/create-employee/', views.ownerCreateEmployee, name='create-employee'),
+    path('owner/employee/list/', views.employeeList, name='employee-list'),
+
+    path('owner/create-retailer/', views.ownerCreateRetailer, name='create-retailer'),
     path('owner/retailer/list/', views.retailerList, name='retailer-list'),
+
+    path('owner/create-dealer/', views.ownerCreateDealer, name='create-dealer'),
+    path('owner/dealer/list/', views.dealerList, name='dealer-list'),
+
+    path('owner/employee/orders/', views.dealer_employee_orders, name='dealer-employee-orders'),
+    path('owner/employee/order-details/<int:order_id>/', views.dealer_employee_order_details, name='dealer-employee-order-details'),
+    path('owner/dealer/orders/', views.dealer_self_orders, name='dealer-self-orders'),
+    path('owner/dealer/order-details/<int:order_id>/', views.dealer_self_order_details, name='dealer-self-order-details'),
+
     path('owner/retailer/orders/', views.retailerOrders, name='retailer-orders'),
 
     path('dealer/login/', views.dealerLogin, name='dealer-login'),
     path('dealer/logout/', views.dealerLogout, name='dealer-logout'),
     path('dealer/dashboard/', views.dealerDashboard, name='dealer-dashboard'),
     path('accept-agreement/', views.acceptAgreement, name='accept-agreement'),
+    path('otp-verification/', views.otp_verification, name='otp-verification'),
     path('agreement/', views.agreement, name='agreement'),
     path('dealer/create-retailer/', views.DealerCreateRetailer, name='dealer-create-retailer'),
     path('dealer/retailer-list/', views.DealerRetailerList, name='dealer-retailer-list'),

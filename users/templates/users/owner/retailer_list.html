@@ -12,16 +12,25 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        First name
+                        Name
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Last name
+                        Address
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Phone
+                        Pincode
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Email
+                        Contact Number
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Created By
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Created At
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Updated At
                     </th>
                 </tr>
             </thead>
@@ -29,16 +38,25 @@
                 {% for retailer in retailers %}
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ retailer.first_name }}
+                        {{ retailer.name }}
                     </th>
                     <td class="px-6 py-4">
-                        {{ retailer.last_name }}
+                        {{ retailer.address }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ retailer.phone }}
+                        {{ retailer.pincode }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ retailer.email }}
+                        {{ retailer.contact_number }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ retailer.created_by.first_name }} {{ retailer.created_by.last_name }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ retailer.created_at }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ retailer.updated_at }}
                     </td>
                 </tr>
                 {% endfor %}
@@ -48,3 +66,16 @@
 </div>
 
 {% endblock %}
+
+
+<!-- class Retailer(models.Model):
+    name = models.CharField(max_length=200, default='Default Retailer Name')
+    address = models.TextField(default='Default Address')
+    pincode = models.CharField(max_length=10, default='Default Pincode')
+    contact_number = models.CharField(max_length=20, default='Default Contact Number')
+    created_by = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='retailers', null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name -->

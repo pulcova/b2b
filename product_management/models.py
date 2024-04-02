@@ -53,9 +53,21 @@ class Product(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = [
+        ('A', 'Approved'),
+        ('PA', 'Pending Approval'),
+
+        ('I', 'Invoice Generated'),
         ('PI', 'Pending Invoice'),
-        ('PP', 'Pending Payment'),
+
         ('PD', 'Paid'),
+        ('PP', 'Pending Payment'),
+
+        ('S', 'Shipped'),
+        ('D', 'Delivered'),
+
+        ('RI', 'Return Initiated'),
+        ('RC', 'Return Completed'),
+        ('R', 'Refunded'),
     ]
 
     order_id = models.AutoField(primary_key=True)
@@ -70,7 +82,7 @@ class Order(models.Model):
     
 class OrderItem(models.Model):
     order_item_id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.PROTECT)
     color = models.ForeignKey(Color, on_delete=models.PROTECT)
     size = models.ForeignKey(Size, on_delete=models.PROTECT)
